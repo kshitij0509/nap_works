@@ -6,11 +6,13 @@ const routes = require("./routes/index.js");
 const morgan = require("morgan");
 const hemlet = require("helmet");
 const errorHandler = require("./middleware/errorHandler.js");
+const limiter = require("./middleware/rateLimiter.js");
 dbConnect();
 
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(hemlet());
+app.use(limiter);
 
 const PORT = process.env.PORT;
 app.get("/", (req, res) => {
