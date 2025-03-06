@@ -7,16 +7,18 @@ const morgan = require("morgan");
 const hemlet = require("helmet");
 const errorHandler = require("./middleware/errorHandler.js");
 const limiter = require("./middleware/rateLimiter.js");
+const logger = require("./middleware/log.js");
 dbConnect();
 
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(hemlet());
 app.use(limiter);
+app.use(logger);
 
 const PORT = process.env.PORT;
 app.get("/", (req, res) => {
-  res.json("hello nap");
+  res.send("hello nap");
 });
 
 app.use(routes);
