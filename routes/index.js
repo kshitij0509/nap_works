@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { login, signup } = require("../controllers/user");
-const { postContent, getPosts } = require("../controllers/post.js");
+const { postContent, getPosts, deletePost } = require("../controllers/post.js");
 const authMiddleware = require("../middleware/authMiddleware");
 const validateRequest = require("../middleware/validateRequest.js");
 
@@ -20,5 +20,7 @@ router.use(authMiddleware);
 router.post("/api/posts", validateRequest(postSchema), postContent);
 
 router.get("/api/posts", getPosts);
+
+router.delete("/api/delete/:id", deletePost);
 
 module.exports = router;

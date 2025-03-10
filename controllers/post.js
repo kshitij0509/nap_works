@@ -72,3 +72,20 @@ exports.getPosts = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+exports.deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await Post.deleteOne({ _id: id });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.json({ success: true, message: "Deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
